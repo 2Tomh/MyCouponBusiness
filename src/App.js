@@ -8,6 +8,7 @@ import CouponMangement from './pages/CouponManagement/CouponManagement';
 import SideNavBar from './components/NavBar/SideNavBar';
 import SignUp from './components/signup/SignUp';
 import store from './store/store';
+import Report from './pages/CouponManagement/Report'
 import { Provider } from 'react-redux'
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Upload" element={<CouponMangement />} />
           <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Report" element={<Report />} />
+          
         </Routes>
       </Provider>
     </Router>

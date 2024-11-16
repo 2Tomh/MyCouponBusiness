@@ -14,7 +14,8 @@ const userSlice = createSlice({
             },
         ],
         loggedIn: false,
-        isAdmin: false
+        isAdmin: false,
+        username: ""
     },
     reducers: {
         addNewUser: (state, action) => {
@@ -30,13 +31,16 @@ const userSlice = createSlice({
             }
 
             if (state.users[userIndex].password == action.payload.password) {
+                let isAdmin = false
 
-                localStorage.setItem("loggedIn", true); // Would save with JWT token instead with server
-                if (state.users[userIndex].isAdmin) {
+                localStorage.setItem("loggedIn", true); // Would save JWT token instead if had server
+
+                if (state.users[userIndex].role.includes(ADMIN)) {
                     localStorage.setItem("isAdmin", true);
+                    isAdmin = true;
                 }
 
-                return { ...state, loggedIn: true, isAdmin: true }
+                return { ...state, loggedIn: true, isAdmin, username: action.payload.username }
             }
 
             return { ...state, loggedIn: false }

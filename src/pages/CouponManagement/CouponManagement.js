@@ -20,6 +20,7 @@ function CouponManagement() {
   const [coupon, setCoupon] = useState()
 
   const coupons = useSelector((state) => state.coupon)
+  console.log(coupons, "##")
   const dispatch = useDispatch();
 
   const addNewCoupon = (newCoupon) => {
@@ -47,6 +48,12 @@ function CouponManagement() {
   const closeDialog = () => {
     setIsDialogVisible(false);
     setCoupon(null)
+
+  }
+
+  const openDialog = () => {
+    setCoupon(null);
+    setIsDialogVisible(true)
   }
 
 
@@ -55,7 +62,7 @@ function CouponManagement() {
       <Typography variant="h4" gutterBottom>
         Coupon Management
       </Typography>
-      <Button variant="contained" color="primary" onClick={() => setIsDialogVisible(true)}>
+      <Button variant="contained" color="primary" onClick={openDialog}>
         Add New Coupon
       </Button>
 
@@ -69,13 +76,13 @@ function CouponManagement() {
                 <>
                   <Typography variant="body2">{coupon.description}</Typography>
 
-                  {coupon.expirationDate && <Typography variant="caption">Expires on: {coupon.expirationDate?.toDate().toDateString()}</Typography>}
+                  {coupon.expirationDate && <Typography variant="caption">Expires on: {coupon.expirationDate?.toDate().toDateString()} | </Typography>}
 
-                  <Typography variant="caption"> {coupon.quantity}  </Typography>
+                  <Typography variant="caption">Quantity: {coupon.quantity ?? 'Unlimited'} |  </Typography>
 
-                  <Typography variant="caption"> {coupon.price}  </Typography>
+                  <Typography variant="caption">Price: {coupon.price}  | </Typography>
 
-                  <Typography variant="caption"> {coupon.couponCode}  </Typography>
+                  <Typography variant="caption">Code: {coupon.couponCode}  </Typography>
                 </>
               }
             />
@@ -92,7 +99,7 @@ function CouponManagement() {
           </ListItem>
         ))}
       </List>
-      <CouponDialog onClose={closeDialog} isOpen={isDialogVisible} editCoupon={onSaveCouponEdit} addCoupon={addNewCoupon} coupon={coupon} isEditMode={coupon ? true : false} />
+      {isDialogVisible && <CouponDialog onClose={closeDialog} isOpen={isDialogVisible} editCoupon={onSaveCouponEdit} addCoupon={addNewCoupon} coupon={coupon} isEditMode={coupon ? true : false} />}
 
     </Box>
 

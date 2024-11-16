@@ -1,36 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { cloneElement } from "react";
-
 
 const couponSlice = createSlice({
     name: 'coupon',
     initialState: [{
         id: '1d33ae578cfc68',
-        price: 154,
+        price: 10,
         description: "Casto shirt",
         expirationDate: null,
-        quantity: 0,
+        quantity: null,
         couponCode: "1234",
-        used: false, 
-        multiple:true
-    },{
+        isMulti: true,
+        createdBy: "Admin",
+        createdDate: new Date()
+    }, {
         id: '1d33ae578cfc6855',
-        price: 4,
+        price: 5,
         description: "Casto shirt33",
-        expirationDate: null,
-        quantity: 0,
+        expirationDate: new Date("11/15/2024"),
+        quantity: null,
         couponCode: "12345",
-        used: false,
-        multiple:false
+        isMulti: false,
+        createdBy: "Admin",
+        createdDate: new Date("11/15/2024")
     }
 
-],
+    ],
     reducers: {
         addCoupon: (state, action) => {
 
             const uniqueId = Math.random().toString(16).slice(2);
             const couponCode = (Math.random() + 1).toString(36).substring(7);
-            const newCoupon = { ...action.payload, id: uniqueId, couponCode: couponCode }
+            const newCoupon = { ...action.payload, id: uniqueId, couponCode: couponCode, createdDate: new Date() }
+
 
             return [...state, newCoupon];
         },
@@ -43,22 +44,16 @@ const couponSlice = createSlice({
 
             let couponIndex = state.findIndex((coupon) => coupon.id == action.payload.id);
             const cloneState = [...state];
-            cloneState[couponIndex] = action.payload;
+
+            cloneState[couponIndex] = { ...cloneState[couponIndex], ...action.payload};
+            console.log(cloneState, "%%%", action)
 
             return cloneState;
-        },
-        usedCoupon:(state, action) =>{
-            const usedCouponIndex = state.findIndex((coupon) => coupon.id == action.payload);
-            const cloneState = [...state];
-            cloneState[usedCouponIndex] = action.payload
-
-            return cloneState;
-            
         }
     }
 })
 
 
-export const { addCoupon, removeCoupon, editCoupon , usedCoupon } = couponSlice.actions
+export const { addCoupon, removeCoupon, editCoupon } = couponSlice.actions
 
 export default couponSlice.reducer;

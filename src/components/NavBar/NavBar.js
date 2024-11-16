@@ -28,7 +28,8 @@ function NavBar() {
                     <Link to='/Login' href='Login'>התחברות</Link>
                     {user.isAdmin && <Link to='/Upload' href='Upload'>העלאת קופונים</Link>}
                     {user.isAdmin && <Link to='/SignUp'>משתמשים</Link>}
-                    {user.loggedIn && <Button onClick={signoutUser}>התנתקות</Button>}
+                    {user.isAdmin && <Link to='/Report'>דוחות</Link>}
+                    {user.loggedIn && <Link><Button onClick={signoutUser} >התנתקות</Button></Link> }
                 </Nav>
             </Container>
         </Navbar>

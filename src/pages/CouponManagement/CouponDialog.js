@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
     Button,
+    Checkbox,
     Dialog,
     DialogActions,
     DialogContent,
@@ -14,9 +15,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import styles from "./CouponDialog.module.css"
+import { useSelector } from 'react-redux';
 
 const CouponDialog = (props) => {
-    const [quantityEnabled, setQuantityEnabled] = useState(false)
+    const [isUnlimited, setIsUnlimited] = useState(false)
     const [couponState, setCouponState] = useState({
         price: 0,
         description: "",
@@ -24,26 +26,34 @@ const CouponDialog = (props) => {
         quantity: 0,
         percentage: 0.00,
         id: null,
-        couponCode:""
+        isMulti: true
     })
 
 
+    const user = useSelector(state => state.user);
+
     useEffect(() => {
         if (props.coupon) {
-
             setCouponState({
                 price: props.coupon?.price,
                 description: props.coupon?.description,
                 expirationDate: props.coupon?.expirationDate,
                 quantity: props.coupon?.quantity,
                 id: props.coupon?.id,
-                couponCode: props.coupon?.couponCode
+                isMulti: props.coupon?.isMulti
             })
+            
             if (props.coupon.quantity > 0) {
-                setQuantityEnabled(true)
+                setIsUnlimited(false)
+            }
+            else if(!props.coupon.quantity){
+                setIsUnlimited(true)
             }
         }
+
     }, [props?.coupon])
+    
+
 
     function saveCoupon(e) {
         e.preventDefault();
@@ -58,8 +68,9 @@ const CouponDialog = (props) => {
                 description: couponState.description,
                 price: couponState.price,
                 expirationDate: couponState.expirationDate,
-                quantity: quantityEnabled ? couponState.quantity : null,
-                couponCode: couponState.couponCode
+                quantity: isUnlimited ? null : couponState.quantity,
+                isMulti: couponState.isMulti,
+                createdBy: user.username
             }
 
             if (props.isEditMode) {
@@ -68,6 +79,7 @@ const CouponDialog = (props) => {
                 props.addCoupon(couponObject);
             }
             clearCouponState()
+            props.onClose()
         }
     }
 
@@ -77,7 +89,7 @@ const CouponDialog = (props) => {
             description: "",
             expirationDate: null,
             quantity: 0,
-            couponCode: ""
+            isMulti: false
         })
     }
 
@@ -107,30 +119,8 @@ const CouponDialog = (props) => {
                             value={couponState.price}
                             onChange={(e) => setCouponState((prevState) => ({ ...prevState, price: e.target.value, percentage: e.target.value * 100 }))}
                         />
-                        {/* <TextField
-                            margin="dense"
-                            label="Price %"
-                            fullWidth
-                            required
-                            slotProps={{ input: { inputProps: { min: 0 } } }}
-                            type="number"
-                            value={couponState.percentage}
-                            onChange={(e) => setCouponState((prevState) => ({ ...prevState, percentage: e.target.value, price: prevState.price / 100 }))}
-                        /> */}
                     </div>
-                    <div>
-                        <TextField
-                            margin="dense"
-                            label="Coupon code"
-                            fullWidth
-                            required
-                            slotProps={{ input: { inputProps: { min: 0 } } }}
-                            type="number"
-                            value={couponState.couponCode}
-                            onChange={(e) => setCouponState((prevState) => ({ ...prevState, couponCode: e.target.value }))}
-                        />
 
-                    </div>
                     <div className={styles.quantityContainer}>
                         <TextField
                             margin="dense"
@@ -141,16 +131,21 @@ const CouponDialog = (props) => {
                             slotProps={{ input: { inputProps: { min: 0 } } }}
                             value={couponState.quantity}
                             onChange={(e) => setCouponState((prevState) => ({ ...prevState, quantity: e.target.value }))}
-                            disabled={quantityEnabled}
+                            disabled={isUnlimited}
                         />
 
-                        <FormControlLabel control={<Switch onChange={() => setQuantityEnabled((prevState) => !prevState)} value={quantityEnabled} />} label="Unlimited" />
+                        <FormControlLabel control={<Switch onChange={() => setIsUnlimited((prevState) => !prevState)} checked={isUnlimited} />} label="Unlimited" />
                     </div>
 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker minDate={dayjs()} format='DD/MM/YYYY' value={couponState.expirationDate} onChange={(e) => setCouponState((prevState) => ({ ...prevState, expirationDate: e }))} />
                     </LocalizationProvider>
 
+                    <FormControlLabel control={
+                        <Checkbox
+                            onChange={() => setCouponState((prevState) => ({ ...prevState, isMulti: !prevState.isMulti }))}
+                            checked={couponState.isMulti}
+                        />} label="Can be used with other coupons ?" />
                 </DialogContent>
 
                 <DialogActions>
