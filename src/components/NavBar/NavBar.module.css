@@ -1,0 +1,29 @@
+.NavBar {
+    height: 32px;
+    max-width: 100%;
+    padding: 10px 10px;
+    margin: auto;
+    display: inherit;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3478c1;
+    direction: rtl;
+}
+
+
+.NavBar a {
+    margin-right: 20%;
+    text-decoration: none;
+    color: #fff;
+    font-family: "proxima-nova", Helvetica, Arial, sans-serif;
+    height: 32px;
+    max-width: 1280px;
+    padding: 0 10px;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-family: proxima-nova, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", HelveticaNeue, arial, sans-serif;
+    font-size: 18px;
+    direction: rtl;
+}

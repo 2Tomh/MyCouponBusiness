@@ -1,0 +1,11 @@
+.couponContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+.coupon{
+    display: flex;
+    gap: 5px;
+}
