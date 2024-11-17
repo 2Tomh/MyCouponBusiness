@@ -1,0 +1,40 @@
+.container {
+    padding: 50px 80px;
+}
+
+.box {
+    width: 250px;
+    height: 219px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: white;
+    flex-direction: column;
+    position: relative;
+}
+
+.box img {
+    position: absolute;
+    right: 0;
+}
+
+.boxContainer {
+    display: flex;
+    gap: 70px;
+    justify-content: space-evenly;
+    margin-bottom: 50px;
+}
+
+.redBox {
+    background: linear-gradient(90deg, #ffbf96, #fe7096);
+}
+
+.blueBox {
+    background: linear-gradient(90deg, #90caf9, #047edf 99%);
+}
+
+.greenBox {
+    background: linear-gradient(90deg, #84d9d2, #07cdae);
+}

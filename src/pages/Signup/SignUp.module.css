@@ -1,0 +1,42 @@
+.signUpStyle {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 35%;
+    margin: 30px auto;
+    border-radius: 0.4em;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.2);
+    height: 640px;
+    gap:25px;
+}
+
+.signup {
+    direction: rtl;
+}
+
+.titleUserName {
+    color:rgba(0,0,0,0.6);
+    font-size: 1.4rem;
+    transform-origin: left top 0px;
+    max-width: 133%;
+    margin-bottom: 0px;
+    transform: translate(58px, 29.5px) scale(0.75);
+   }
+
+.titlePassword {
+ color:rgba(0,0,0,0.6);
+ font-size: 1.4rem;
+ transform-origin: left top 0px;
+ max-width: 133%;
+ margin-bottom: 0px;
+transform: translate(75px, 27.5px) scale(0.75);
+}
+
+.headline{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 45px;
+}
+

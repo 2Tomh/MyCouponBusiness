@@ -1,12 +1,12 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-
 import 'swiper/css/navigation';
 import { Box, Typography } from "@mui/material";
 import styles from "./HomePage.module.css"
 import Product from '../../components/Product/Product';
 import { Navigation } from 'swiper/modules';
-import products from './products';
+import products from '../../utils/products';
+
 
 function HomePage() {
 
@@ -16,7 +16,7 @@ function HomePage() {
             {products.map((category, i) =>
                 <div key={i}>
                     <Box className={styles.product}>
-                        <Typography variant='h3' textAlign={"center"}>{category.category}</Typography>
+                        <Typography variant='h3' textAlign={"center"} sx={{marginBottom:'20px'}}>{category.category}</Typography>
                         <Swiper
                             navigation={true}
                             slidesPerView={4}

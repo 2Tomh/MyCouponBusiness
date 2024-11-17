@@ -6,7 +6,7 @@ import styles from './NavBar.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { signout } from "../../store/userSlice";
-
+import LogoutIcon from '@mui/icons-material/Logout';
 function NavBar() {
 
     const user = useSelector((state) => state.user);
@@ -24,12 +24,12 @@ function NavBar() {
             <Container>
                 <Nav>
                     <Link to='/' href="Home">קופונים </Link>
-                    <Link to='/Coupon' href='About'> עלינו</Link>
+                    <Link to='/About' href='About'> עלינו</Link>
                     <Link to='/Login' href='Login'>התחברות</Link>
                     {user.isAdmin && <Link to='/Upload' href='Upload'>העלאת קופונים</Link>}
                     {user.isAdmin && <Link to='/SignUp'>משתמשים</Link>}
                     {user.isAdmin && <Link to='/Report'>דוחות</Link>}
-                    {user.loggedIn && <Link><Button onClick={signoutUser} >התנתקות</Button></Link> }
+                    {user.loggedIn && <Link ><Button onClick={signoutUser} style={{color:'white'}}><LogoutIcon/></Button></Link> }
                 </Nav>
             </Container>
         </Navbar>

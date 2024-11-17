@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Button,
     Checkbox,
@@ -37,7 +37,7 @@ const CouponDialog = (props) => {
             setCouponState({
                 price: props.coupon?.price,
                 description: props.coupon?.description,
-                expirationDate: props.coupon?.expirationDate,
+                expirationDate: dayjs(props.coupon?.expirationDate),
                 quantity: props.coupon?.quantity,
                 id: props.coupon?.id,
                 isMulti: props.coupon?.isMulti
@@ -67,7 +67,7 @@ const CouponDialog = (props) => {
                 id: couponState.id,
                 description: couponState.description,
                 price: couponState.price,
-                expirationDate: couponState.expirationDate,
+                expirationDate: couponState.expirationDate.toDate(),
                 quantity: isUnlimited ? null : couponState.quantity,
                 isMulti: couponState.isMulti,
                 createdBy: user.username

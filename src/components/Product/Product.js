@@ -7,8 +7,10 @@ import Typography from '@mui/material/Typography';
 import { Alert, Button, Chip, Snackbar, TextField } from '@mui/material';
 import { useState } from 'react';
 import styles from "./Product.module.css"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import DeleteIcon from '@mui/icons-material/Delete';
+import { removeUsedCoupon, saveCoupon } from '../../store/analyticsSlice';
+import { decrementQuantity, incrementQuantity } from '../../store/couponSlice';
 
 
 const Product = (props) => {
@@ -19,25 +21,34 @@ const Product = (props) => {
     const [snackbar, setSnackbar] = useState({ visible: false, message: "" })
 
     const coupons = useSelector(state => state.coupon);
+    const user = useSelector(state => state.user)
+    const analytics = useSelector(state => state.analytics)
+
+    const dispatch = useDispatch();
 
     const applyCoupon = () => {
         let coupon = coupons.find((coupon) => coupon.couponCode == couponCode)
 
         const today = new Date();
 
-        if (coupon?.expirationDate && coupon?.expirationDate < today) {
+
+        if (!coupon?.isMulti && appliedCoupons.length > 0 || appliedCoupons.some((c) => !c.isMulti)) {
+            return setSnackbar({ visible: true, message: "Coupon cannot be used with other coupons" })
+        }
+
+        if (!coupon?.price || coupon?.expirationDate && coupon?.expirationDate < today) {
             return setSnackbar({ visible: true, message: "Coupon is expired" })
         };
 
-        let isApplied = appliedCoupons.find((coupon) => coupon.couponCode == couponCode)
+        let isApplied = analytics.usedCoupons.find((c) => c.couponId == coupon.id);
 
-        if (!coupon?.price || isApplied) {
-            return setSnackbar({ visible: true, message: "Coupon is already applied or has no price" })
-        };
+        if (isApplied) {
+            return setSnackbar({ visible: true, message: "Coupon is already applied" })
+        }
 
         let discount = price * (1 - coupon.price / 100);
 
-        setPrice(discount)
+        setPrice(Math.trunc(discount))
 
         setAppliedCoupons((prevState) => {
             const cloneState = [...prevState]
@@ -47,6 +58,12 @@ const Product = (props) => {
 
         setCouponCode("");
         setIsCouponVisible(false);
+
+        dispatch(saveCoupon({ username: user.username, couponId: coupon.id, date: new Date() }))
+        if(coupon.quantity){
+
+            dispatch(decrementQuantity(coupon));
+        }
     }
 
     const handleDeleteCoupon = (index) => {
@@ -63,11 +80,16 @@ const Product = (props) => {
         setPrice(discount);
 
         setAppliedCoupons(filterredCoupons)
+
+        dispatch(removeUsedCoupon({ id: coupon.id }));
+        if(coupon.quantity){
+            dispatch(incrementQuantity(coupon));
+        }
     }
 
     return (
         <>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345, padding: '20px' }}>
                 <CardMedia
                     component="img"
                     sx={{ height: "150px", backgroundSize: "contain", objectFit: "contain" }}
@@ -110,10 +132,10 @@ const Product = (props) => {
                 anchorOrigin={{ vertical: 'top', horizontal: "center" }}
                 open={snackbar.visible}
                 autoHideDuration={3000}
-                onClose={() => setSnackbar({visible:false, message:""})}
+                onClose={() => setSnackbar({ visible: false, message: "" })}
             >
                 <Alert
-                
+
                     severity="error"
                     variant="filled"
                     sx={{ width: "200px" }}

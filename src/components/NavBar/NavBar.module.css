@@ -6,7 +6,7 @@
     display: inherit;
     justify-content: space-between;
     align-items: center;
-    background-color: #3478c1;
+    background-color: cornflowerblue;
     direction: rtl;
 }
 
@@ -14,7 +14,7 @@
 .NavBar a {
     margin-right: 20%;
     text-decoration: none;
-    color: #fff;
+    color: white;
     font-family: "proxima-nova", Helvetica, Arial, sans-serif;
     height: 32px;
     max-width: 1280px;

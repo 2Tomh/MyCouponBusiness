@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-
-
 import {
   Box,
   Button,
@@ -13,14 +11,14 @@ import {
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import CouponDialog from './CouponDialog';
-import { addCoupon, removeCoupon , editCoupon } from "../../store/couponSlice";
+import { addCoupon, removeCoupon, editCoupon } from "../../store/couponSlice";
 
 function CouponManagement() {
   const [isDialogVisible, setIsDialogVisible] = useState(false)
   const [coupon, setCoupon] = useState()
 
   const coupons = useSelector((state) => state.coupon)
-  console.log(coupons, "##")
+
   const dispatch = useDispatch();
 
   const addNewCoupon = (newCoupon) => {
@@ -76,7 +74,11 @@ function CouponManagement() {
                 <>
                   <Typography variant="body2">{coupon.description}</Typography>
 
-                  {coupon.expirationDate && <Typography variant="caption">Expires on: {coupon.expirationDate?.toDate().toDateString()} | </Typography>}
+                  {coupon?.expirationDate &&
+                    <Typography variant="caption">
+                      Expires on: {coupon?.expirationDate.toDateString()} |
+                    </Typography>
+                  }
 
                   <Typography variant="caption">Quantity: {coupon.quantity ?? 'Unlimited'} |  </Typography>
 

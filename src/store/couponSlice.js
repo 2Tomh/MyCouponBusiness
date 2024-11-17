@@ -11,18 +11,19 @@ const couponSlice = createSlice({
         couponCode: "1234",
         isMulti: true,
         createdBy: "Admin",
-        createdDate: new Date()
+        createdDate: new Date(),
     }, {
         id: '1d33ae578cfc6855',
         price: 5,
         description: "Casto shirt33",
-        expirationDate: new Date("11/15/2024"),
+        expirationDate: new Date("11/17/2024"),
         quantity: null,
         couponCode: "12345",
         isMulti: false,
         createdBy: "Admin",
         createdDate: new Date("11/15/2024")
     }
+
 
     ],
     reducers: {
@@ -46,14 +47,27 @@ const couponSlice = createSlice({
             const cloneState = [...state];
 
             cloneState[couponIndex] = { ...cloneState[couponIndex], ...action.payload};
-            console.log(cloneState, "%%%", action)
 
             return cloneState;
+        },
+        decrementQuantity: (state, action) => {
+            const coupon = state.find((c) => c.id == action.payload.id);
+
+            coupon.quantity--;
+
+            return state;
+        },
+        incrementQuantity: (state, action) => {
+            const coupon = state.find((c) => c.id == action.payload.id);
+
+            coupon.quantity++;
+
+            return state;
         }
     }
 })
 
 
-export const { addCoupon, removeCoupon, editCoupon } = couponSlice.actions
+export const { addCoupon, removeCoupon, editCoupon, decrementQuantity, incrementQuantity } = couponSlice.actions
 
 export default couponSlice.reducer;
