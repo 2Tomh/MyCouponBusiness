@@ -13,11 +13,14 @@
     color: white;
     flex-direction: column;
     position: relative;
+    box-shadow: 0 5px 10px 5px rgba(186, 66, 66, 0.2);
+
 }
 
 .box img {
     position: absolute;
     right: 0;
+    
 }
 
 .boxContainer {
@@ -43,5 +46,12 @@
     width: 73%;
     margin-right: auto;
     margin-left: auto;
+    box-shadow: 0 5px 10px 5px rgba(186, 66, 66, 0.2);
+}
 
+.reportHeadLine{
+    align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 30px auto;
 }

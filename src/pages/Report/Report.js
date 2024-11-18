@@ -69,7 +69,7 @@ function Report() {
   return (
 
     <div className={styles.container}>
-      <h2>Reports</h2>
+      <h2 className={styles.reportHeadLine}>דוחות ומעקב אחר האתר</h2>
       <div className={styles.boxContainer}>
 
         <Box className={`${styles.redBox}  ${styles.box}`}>
