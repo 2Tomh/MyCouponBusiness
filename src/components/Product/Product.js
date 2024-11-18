@@ -26,20 +26,26 @@ const Product = (props) => {
 
     const dispatch = useDispatch();
 
+
+    /* This function check the validity of a coupon, apllies itsdiscount if valid
+     updates the application state and user analytics accordungly */
     const applyCoupon = () => {
         let coupon = coupons.find((coupon) => coupon.couponCode == couponCode)
 
         const today = new Date();
 
-
+        /* Here we check if the coupuon has a one-time use option (isMulti) without muiltplaying coupon
+         then the function shows an error that the coupon cannot be used */
         if (!coupon?.isMulti && appliedCoupons.length > 0 || appliedCoupons.some((c) => !c.isMulti)) {
             return setSnackbar({ visible: true, message: "Coupon cannot be used with other coupons" })
         }
 
+        //Here we check if price is (null or invalid)  or has expired, and displays a error message 
         if (!coupon?.price || coupon?.expirationDate && coupon?.expirationDate < today) {
             return setSnackbar({ visible: true, message: "Coupon is expired" })
         };
 
+        // Verifies whether the coupon has already been applied , if it is,message is displayed 
         let isApplied = analytics.usedCoupons.find((c) => c.couponId == coupon.id);
 
         if (isApplied) {
@@ -59,6 +65,7 @@ const Product = (props) => {
         setCouponCode("");
         setIsCouponVisible(false);
 
+        // If the coupon has a quantity limit, its count is decremented  
         dispatch(saveCoupon({ username: user.username, couponId: coupon.id, date: new Date() }))
         if(coupon.quantity){
 
@@ -66,6 +73,9 @@ const Product = (props) => {
         }
     }
 
+    /* The selected coupon is rerieved from thr appliedCoupons array based on its index,
+     a filtered version of appliedCoupons is created, excluding the coupon being removed.
+      If the coupon has a quantity limit, its count is incremented   */ 
     const handleDeleteCoupon = (index) => {
         const coupon = appliedCoupons[index];
 

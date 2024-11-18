@@ -5,17 +5,12 @@ const analyticsSlice = createSlice({
     initialState: {
         usedCoupons: [
             {
-                username:'tom',
+                username:'Tom',
                 couponId: '1d33ae578cfc6855',
                 date: new Date()
             },
             {
-                username:'TAL',
-                couponId: '1d33ae578cfc6855',
-                date: new Date()
-            },
-            {
-                username:'tomWWWW',
+                username:'Sahar',
                 couponId: '1d33ae578cfc6855',
                 date: new Date()
             },

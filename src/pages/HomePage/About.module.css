@@ -1,0 +1,22 @@
+.about{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: 30px auto;
+    border-radius: 0.4em;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 10px 5px rgba(186, 66, 66, 0.2);
+    height: 100%;
+    gap:25px;
+}
+
+.aboutList{
+    list-style: none;
+}
+
+.headLine{
+    line-height: 0.5;;
+}

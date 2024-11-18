@@ -42,19 +42,21 @@ const CouponDialog = (props) => {
                 id: props.coupon?.id,
                 isMulti: props.coupon?.isMulti
             })
-            
+
             if (props.coupon.quantity > 0) {
                 setIsUnlimited(false)
             }
-            else if(!props.coupon.quantity){
+            else if (!props.coupon.quantity) {
                 setIsUnlimited(true)
             }
         }
 
     }, [props?.coupon])
-    
 
 
+    /* validate that the coupon has all the necessary properties,
+    and then creates the new coupon with all the  properties with the user that created the coupon.
+    with an option to edit the coupon */
     function saveCoupon(e) {
         e.preventDefault();
 
@@ -96,7 +98,7 @@ const CouponDialog = (props) => {
 
     return (
         <Dialog open={props.isOpen} onClose={props.onClose}>
-            <form onSubmit={saveCoupon}>
+            <form onSubmit={saveCoupon} >
                 <DialogTitle>{props.isEditMode ? " Edit coupon" : "Add new coupon"}</DialogTitle>
                 <DialogContent>
                     <TextField

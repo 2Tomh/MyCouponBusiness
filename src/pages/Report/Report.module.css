@@ -38,3 +38,10 @@
 .greenBox {
     background: linear-gradient(90deg, #84d9d2, #07cdae);
 }
+
+.table {
+    width: 73%;
+    margin-right: auto;
+    margin-left: auto;
+
+}

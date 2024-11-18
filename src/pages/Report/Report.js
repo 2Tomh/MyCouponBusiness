@@ -5,7 +5,6 @@ import styles from "./Report.module.css"
 import bubbles from "../../images/bubbles.svg";
 import products from "../../utils/products";
 import Search from '@material-ui/icons/Search'
-import ViewColumn from '@material-ui/icons/ViewColumn'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import ChevronRight from '@material-ui/icons/ChevronRight'
@@ -24,7 +23,7 @@ function Report() {
 
   const tableIcons = {
     Check: Check,
-    ResetSearch:Clear,
+    ResetSearch: Clear,
     DetailPanel: ChevronRight,
     Export: SaveAlt,
     Filter: FilterList,
@@ -48,6 +47,8 @@ function Report() {
     return coupon.find((c) => c.id == id);
   }
 
+  
+/*Calculates the total number of product items across all products. */
   const calculateProductsAmount = () => {
     return products.reduce((acc, product) => acc + product.items.length, 0)
   }
@@ -90,16 +91,16 @@ function Report() {
         </Box>
       </div>
 
-      <div>
+      <div className={styles.table}>
         <MaterialTable
-        icons={tableIcons}
+          icons={tableIcons}
           title="Used coupons"
           columns={columns}
           data={createTableDataSource()}
           options={{
             exportButton: true
           }}
-          
+
         />
 
       </div>

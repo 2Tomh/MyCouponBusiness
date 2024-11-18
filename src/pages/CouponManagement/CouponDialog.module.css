@@ -1,6 +1,24 @@
-.quantityContainer{
-    display:flex;
+.quantityContainer {
+    display: flex;
     align-items: center;
-    gap:10px;
+    gap: 10px;
 }
 
+.addCouponBox {
+    border: dotted;
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    margin: 36px 600px;
+    border-radius: 0.4em;
+    box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.2);
+    height: 640px;
+    gap: 25px;
+    height:fit-content
+}
+
+.AddButton{
+    margin-right:auto;
+    margin-left: auto;
+    width: 20%;
+}

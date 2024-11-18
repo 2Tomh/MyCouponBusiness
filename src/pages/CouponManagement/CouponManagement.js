@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  Box,
-  Button,
-  List,
-  ListItem,
-  IconButton,
-  ListItemText,
-  Typography,
-} from '@mui/material';
+import {Box, Button, List, ListItem, IconButton, ListItemText, Typography,} from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import CouponDialog from './CouponDialog';
 import { addCoupon, removeCoupon, editCoupon } from "../../store/couponSlice";
+import styles from "./CouponDialog.module.css"
+
 
 function CouponManagement() {
   const [isDialogVisible, setIsDialogVisible] = useState(false)
@@ -56,15 +50,15 @@ function CouponManagement() {
 
 
   return (
-    <Box p={3} style={{ width: "80%" }}>
-      <Typography variant="h4" gutterBottom>
+    <Box p={3}  className={styles.addCouponBox} >
+      <Typography style={{ marginRight:"auto" ,   marginLeft: "auto"}} variant="h4" gutterBottom>
         Coupon Management
       </Typography>
-      <Button variant="contained" color="primary" onClick={openDialog}>
+      <Button style={{ marginRight:"auto" ,   marginLeft: "auto", width: "20%"}} variant="contained" color="primary" onClick={openDialog}>
         Add New Coupon
       </Button>
 
-      <List>
+      <List >
         {coupons.map((coupon, index) => (
           <ListItem key={index} divider  >
 
